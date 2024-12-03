@@ -1,6 +1,8 @@
-import express from 'express'
-import mongoose from 'mongoose';
-import 'dotenv/config'
+const express = require('express');
+const mongoose = require('mongoose');
+require('dotenv').config();
+const router = require('./routes/user.js');
+
 
 const app = express()
 const port = process.env.port || 3000
@@ -10,12 +12,9 @@ const database = process.env.db_database
 
 mongoose.connect(`mongodb://${mongoUrl}/${database}?directConnection=true`).then(() => console.log('Database working...')).catch(err => console.log(`erreur : ${err}`))
 
-let db
+app.use(express.json());
 
-
-app.get('/', (req, res) => {
-    res.send('url / ; ok')
-})
+app.use('/', router)
 
 app.listen(port, () => {
     console.log(`Server start on : http://localhost:${port}`)
