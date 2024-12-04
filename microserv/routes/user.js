@@ -6,6 +6,9 @@ const authController = require("../controllers/authController.js")
 router.get("/", (req, res) => {
     return res.status(200).json({ message: "OK" });
 })
+
 router.post("/register", authController.register)
+
+router.post("/login", authController.login)
 
 module.exports = router
